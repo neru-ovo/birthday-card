@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日快乐 🎂 lpy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#04040e;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Georgia','Noto Serif SC',serif;overflow-x:hidden;color:#e0e8ff;padding:20px}
+
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.scan,.scan2,.scan3{position:fixed;z-index:1;pointer-events:none}
+.scan{top:0;left:-130%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(100,180,255,.02) 20%,rgba(100,180,255,.08) 45%,rgba(180,210,255,.13) 50%,rgba(100,180,255,.08) 55%,rgba(100,180,255,.02) 80%,transparent 100%);animation:sH 7s ease-in-out infinite}
+.scan2{top:0;left:130%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(140,110,255,.015) 25%,rgba(140,110,255,.05) 48%,rgba(180,160,255,.09) 50%,rgba(140,110,255,.05) 52%,rgba(140,110,255,.015) 75%,transparent 100%);animation:sH2 10s ease-in-out infinite 1.5s}
+.scan3{top:-25%;left:0;width:100%;height:35%;background:linear-gradient(180deg,transparent 0%,rgba(100,180,255,.02) 35%,rgba(100,180,255,.07) 50%,rgba(100,180,255,.02) 65%,transparent 100%);animation:sV 13s ease-in-out infinite}
+@keyframes sH{0%,100%{left:-130%}50%{left:130%}}@keyframes sH2{0%,100%{left:130%}50%{left:-130%}}@keyframes sV{0%,100%{top:-25%}50%{top:90%}}
+
+.spots{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden}
+.sp{position:absolute;border-radius:50%;filter:blur(80px);opacity:0;animation:sf 12s ease-in-out infinite}
+.sp:nth-child(1){width:500px;height:500px;background:radial-gradient(circle,rgba(74,138,255,.3),transparent 70%);top:0%;left:0%}
+.sp:nth-child(2){width:400px;height:400px;background:radial-gradient(circle,rgba(130,180,255,.25),transparent 70%);bottom:0%;right:0%;animation-delay:-3s}
+.sp:nth-child(3){width:350px;height:350px;background:radial-gradient(circle,rgba(180,140,255,.2),transparent 70%);top:30%;left:60%;animation-delay:-6s}
+.sp:nth-child(4){width:300px;height:300px;background:radial-gradient(circle,rgba(74,200,255,.18),transparent 70%);top:60%;left:10%;animation-delay:-2s}
+.sp:nth-child(5){width:400px;height:400px;background:radial-gradient(circle,rgba(200,160,255,.15),transparent 70%);top:10%;right:20%;animation-delay:-8s}
+@keyframes sf{0%,100%{opacity:.3;transform:translate(0,0)scale(1)}20%{opacity:.65;transform:translate(50px,-30px)scale(1.1)}40%{opacity:.4;transform:translate(-25px,35px)scale(.92)}60%{opacity:.7;transform:translate(35px,-20px)scale(1.08)}80%{opacity:.35;transform:translate(-40px,25px)scale(.96)}}
+
+canvas#fw{position:fixed;top:0;left:0;width:100%;height:100%;z-index:3;pointer-events:none}
+
+.card{position:relative;z-index:4;max-width:740px;width:100%;padding:50px 48px;background:rgba(5,5,24,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(100,150,255,.12);border-radius:28px;box-shadow:0 0 120px rgba(74,138,255,.08),inset 0 1px 0 rgba(100,150,255,.06)}
+
+.title{text-align:center;font-size:38px;font-weight:bold;color:#e0ecff;margin-bottom:6px;text-shadow:0 0 40px rgba(100,150,255,.3),0 0 80px rgba(74,138,255,.15);letter-spacing:6px}
+.subtitle{text-align:center;font-size:16px;color:#99b0e0;margin-bottom:28px;letter-spacing:8px;text-shadow:0 0 20px rgba(100,150,255,.2)}
+.divider{width:100px;height:1px;margin:0 auto 30px;background:linear-gradient(90deg,transparent,rgba(100,150,255,.4),transparent)}
+.message{font-size:15px;line-height:2.1;color:#d0dcf8;white-space:pre-wrap;word-wrap:break-word;text-shadow:0 0 8px rgba(100,150,255,.08)}
+.deco-line{text-align:center;margin:26px 0 0;font-size:14px;color:rgba(100,150,255,.25);letter-spacing:12px;text-shadow:0 0 10px rgba(100,150,255,.1)}
+.signature{text-align:right;margin-top:24px;font-size:16px;color:#99b0e0;letter-spacing:2px;text-shadow:0 0 15px rgba(100,150,255,.15)}
+.signature span{color:#d0dcf8}
+
+@media(max-width:600px){
+  .card{padding:30px 20px;border-radius:20px}
+  .title{font-size:28px}
+  .message{font-size:14px;line-height:2}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+<div class="scan"></div><div class="scan2"></div><div class="scan3"></div>
+<div class="spots"><div class="sp"></div><div class="sp"></div><div class="sp"></div><div class="sp"></div><div class="sp"></div></div>
+<canvas id="fw"></canvas>
+
+<div class="card">
+  <div class="title">✨ 生日快乐 ✨</div>
+  <div class="subtitle">— To dear lpy —</div>
+  <div class="divider"></div>
+
+  <div class="message">22岁生日快乐~亲爱的lpy！！
+
+今年都经历好多，不过最终你上岸了，可喜可贺！🎉🎉
+
+你好坚强真的...上次我们去南海吃饭你一脸风平浪静地跟我讲你的经历，感觉你跨过这道坎之后成长了好多。
+
+想想我居然没有陪伴你这一阶段，你不跟我讲我都不知道呢，有点小遗憾，不过好像我们之前也这样，偶尔停下来看看对方走到哪了，这就很足够了✨。
+
+稳定的工作就意味着你可以有更多的时间和精力去探索生活，在宝贵的周末和寒暑假里，你喜欢旅游喜欢拍照，这些时间能让你培养很健康的生活方式与兴趣爱好了。
+
+不管干什么工作，我们应该保持过好自己人生的姿态，学会课题分离，做老师我觉得这点更需要注意到，我担心你容易陷入内耗中，因为教师不免要与讲不通的孩子与家长沟通，还要履行好自己的责任，蛮不容易的。
+
+这样的稳定也许也会成为一种局限，无法探索另一些职业与生活，不过现在安定下来大概就是最优选。闲自己是想去闯闯，想去探索探索，也喜欢这种跳出舒适圈碰撞现实的感觉，今朝有酒今朝醉~
+
+如果万一以后想放弃这种安逸，闲也会支持你，什么时候都可以来找闲💙。
+
+之前拼豆的时候你说，陈zy说希望你也可以放开心去找他，不要顾及这么多。我说我们应该不会到那个地步吧。你回答说，是的，毕竟我们那么近。其实我想说的是，并不是因为距离远近。
+
+我们大学这四年互相倾吐过的心声，互相向对方询问过的烦恼，在我看来都是十分珍贵的。我们的心已经不会走远了，我也不希望会走远。
+
+每一次见你，我们似乎都和以前不同，我们思考的东西与烦恼，每一次都更深了。但是我仍然很信任你，也希望你可以不用顾虑这么多的，信任我。你永远不会成为我的负担，我也希望我状态不好时向你倾诉的事，也不会让你感到为难。
+
+lpy22岁生日快乐！但是我希望我们可以不要做大人，我们可以成熟可以懂事，但是也不要忘记自己的感受，不要当麻木的所谓大人。
+
+很感谢你的存在，也庆幸自己能和你又走过一年。
+
+要开开心心健健康康~及时体检！˶ᵒ ᵕ ˂˶</div>
+
+  <div class="signature">—— <span>闲</span></div>
+  <div class="deco-line">✦ ✦ ✦</div>
+</div>
+
+<script>
+(function(){
+/* === 星空 === */
+var bgC=document.getElementById('bg'),bgX=bgC.getContext('2d'),bgStars=[];
+function rsBg(){bgC.width=innerWidth;bgC.height=innerHeight}rsBg();
+function initBg(n){bgStars=[];for(var i=0;i<n;i++)bgStars.push({x:Math.random()*bgC.width,y:Math.random()*bgC.height,r:Math.random()*1.8+.4,a:Math.random()*.8+.2,s:Math.random()*.01+.004,p:Math.random()*Math.PI*2})}
+initBg(500);
+function drawBg(t){bgX.clearRect(0,0,bgC.width,bgC.height);for(var i=0;i<bgStars.length;i++){var s=bgStars[i],al=s.a*(.4+.6*Math.sin(t*s.s+s.p));bgX.beginPath();bgX.arc(s.x,s.y,s.r,0,Math.PI*2);bgX.fillStyle='rgba(200,220,255,'+al+')';bgX.fill()}}
+
+/* === 烟花增强版 === */
+var fwC=document.getElementById('fw'),fwX=fwC.getContext('2d'),pts=[],glows=[];
+function rsFw(){fwC.width=innerWidth;fwC.height=innerHeight}rsFw();
+function Pt(x,y,c,sp,sz,al,dc){this.x=x;this.y=y;var a=Math.random()*Math.PI*2;s=sp||Math.random()*6+3;this.vx=Math.cos(a)*s;this.vy=Math.sin(a)*s;this.al=al||1;this.dc=dc||Math.random()*.012+.006;this.c=c;this.sz=sz||Math.random()*3+1.5;this.tr=[]}
+Pt.prototype.up=function(){this.tr.push({x:this.x,y:this.y});if(this.tr.length>8)this.tr.shift();this.x+=this.vx;this.y+=this.vy;this.vy+=.035;this.al-=this.dc;this.vx*=.99};
+Pt.prototype.dr=function(c){
+  for(var i=0;i<this.tr.length;i++){var a=(i/this.tr.length)*this.al*.35;c.beginPath();c.arc(this.tr[i].x,this.tr[i].y,this.sz*.5,0,Math.PI*2);c.fillStyle=this.c.replace('1)',a+')');c.fill()}
+  c.beginPath();c.arc(this.x,this.y,this.sz,0,Math.PI*2);c.fillStyle=this.c.replace('1)',this.al+')');c.fill();
+  c.beginPath();c.arc(this.x,this.y,this.sz*4,0,Math.PI*2);c.fillStyle=this.c.replace('1)',this.al*.18+')');c.fill();
+};
+
+function rndC(){var ps=[[190+Math.random()*60,85,70],[210+Math.random()*50,90,78],[170+Math.random()*40,75,65],[250+Math.random()*50,75,75],[40,95,75],[185+Math.random()*55,90,75],[300,70,75]];var p=ps[Math.floor(Math.random()*ps.length)];return'hsla('+p[0]+','+p[1]+'%,'+p[2]+'%,1)'}
+
+function burst(x,y){
+  var c=rndC(),n=Math.floor(Math.random()*80+60);
+  for(var i=0;i<n;i++)pts.push(new Pt(x,y,c));
+  // 中心闪光
+  glows.push({x:x,y:y,r:5,a:1,t:0});
+}
+function glowUpdate(){
+  for(var i=glows.length-1;i>=0;i--){
+    var g=glows[i];g.r+=1.2;g.a-=.03;g.t++;
+    if(g.a<=0||g.t>40){glows.splice(i,1);continue}
+    fwX.beginPath();fwX.arc(g.x,g.y,g.r,0,Math.PI*2);
+    fwX.fillStyle='rgba(255,230,200,'+(g.a*.3)+')';fwX.fill();
+    fwX.beginPath();fwX.arc(g.x,g.y,g.r*2,0,Math.PI*2);
+    fwX.fillStyle='rgba(255,200,150,'+(g.a*.12)+')';fwX.fill();
+  }
+}
+
+function launch(){
+  var fx=Math.random()*fwC.width*.6+fwC.width*.2,ty=Math.random()*fwC.height*.3+fwC.height*.08,steps=60,c=rndC();
+  for(var i=0;i<steps;i++){
+    var p=new Pt(fx,fwC.height-(i/steps)*(fwC.height-ty),c,.8,2-i/steps,.6,.06);
+    p.vx=(Math.random()-.5)*.3;p.vy=(Math.random()-.5)*.3;pts.push(p);
+  }
+  setTimeout(function(){burst(fx,ty)},steps*10);
+}
+function drFw(){
+  fwX.clearRect(0,0,fwC.width,fwC.height);
+  for(var i=pts.length-1;i>=0;i--){pts[i].up();pts[i].dr(fwX);if(pts[i].al<=0)pts.splice(i,1)}
+  glowUpdate();
+}
+
+// 开屏连放
+for(var ii=0;ii<8;ii++){(function(i){setTimeout(function(){
+  if(i%2===0){
+    burst(Math.random()*fwC.width*.6+fwC.width*.2,Math.random()*fwC.height*.35+fwC.height*.08);
+    if(i%4===0)setTimeout(function(){burst(Math.random()*fwC.width*.7+fwC.width*.15,Math.random()*fwC.height*.3+fwC.height*.1)},300);
+  }else launch()
+},i*450)})(ii)}
+
+var fwTimer=setInterval(function(){
+  if(Math.random()>.4)burst(Math.random()*fwC.width*.6+fwC.width*.2,Math.random()*fwC.height*.35+fwC.height*.08);
+  else launch();
+  if(Math.random()>.5)setTimeout(function(){burst(Math.random()*fwC.width*.5+fwC.width*.25,Math.random()*fwC.height*.3+fwC.height*.1)},350+Math.random()*500);
+},2800);
+
+function animate(t){requestAnimationFrame(animate);drawBg(t);drFw()}
+animate(0);
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){rsBg();rsFw();initBg(500)},200)});
+})();
+</script>
+</body>
+</html>
